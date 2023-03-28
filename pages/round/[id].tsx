@@ -11,9 +11,9 @@ const DHFont = localFont({ src: '../../fonts/DeliciousHandrawn-Regular.ttf'});
 export default function Round({round, images, quiz, end}: any) {
   const [score, setScore] = useState();
   useEffect(() => {
-    let gameInfo: any = localStorage.getItem('wiai');
+    let gameInfo: any = localStorage.getItem('wiai2');
     if (!gameInfo) {
-      localStorage.setItem('wiai', JSON.stringify({
+      localStorage.setItem('wiai2', JSON.stringify({
         round: 1,
         score: 0,
         timestamp: (new Date()).toISOString()

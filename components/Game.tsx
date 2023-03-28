@@ -26,7 +26,7 @@ export default function Game({ images, quiz }: GameProps) {
   const [answer, setAnswer] = useState('');
 
   useEffect(() => {
-    const existingLS = localStorage.getItem('wiai');
+    const existingLS = localStorage.getItem('wiai2');
     if (existingLS) {
       const asJSON = JSON.parse(existingLS);
       // const timestamp = Date.parse(asJSON.timestamp); // Raw timestamp
@@ -42,7 +42,7 @@ export default function Game({ images, quiz }: GameProps) {
       }
     }
 
-    localStorage.setItem('wiai', JSON.stringify({
+    localStorage.setItem('wiai2', JSON.stringify({
       round: 1,
       score: 0,
       timestamp: (new Date()).toISOString()
@@ -99,7 +99,7 @@ export default function Game({ images, quiz }: GameProps) {
   }
 
   function nextRound() {
-    let data: any = localStorage.getItem('wiai');
+    let data: any = localStorage.getItem('wiai2');
     if (!data) {
       return;
     }
@@ -107,7 +107,7 @@ export default function Game({ images, quiz }: GameProps) {
     data = JSON.parse(data);
     data.score = score;
     data.round += 1;
-    localStorage.setItem('wiai', JSON.stringify(data));
+    localStorage.setItem('wiai2', JSON.stringify(data));
     window.location.href = `https://${document.location.host}/round/${data.round}`;
   }
 
