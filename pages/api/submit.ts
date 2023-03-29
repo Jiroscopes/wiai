@@ -43,7 +43,7 @@ export default async function handler(
   const supabase = createClient('https://eoylidbwjakonjghnqei.supabase.co', key);
 
   const {error, data} : any = await supabase.from('quiz_rounds')
-    .select('answer').eq('id', decodedCookie.round).eq('quiz', quiz);
+    .select('answer').eq('round', decodedCookie.round).eq('quiz', quiz);
     var date = new Date(); 
     var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 25, 59, 59); 
   // TODO: Check how many rounds
@@ -65,6 +65,6 @@ export default async function handler(
   if (decodedCookie.round + 1 > 3) {
     lastRound = true;
   }
-
+  
   res.status(200).json({ correct: (data[0]?.answer ?? '') === selection, answer: data[0]?.answer ?? '', nextRoundFromServer: decodedCookie.round + 1, lastRound: lastRound})
 }
