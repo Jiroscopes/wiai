@@ -77,7 +77,7 @@ export async function getServerSideProps({req, res}: any) {
     `)
     .lte('start_date', currentTimestamp)
     .gte('end_date', currentTimestamp)
-    .eq('quiz_rounds.id', decodedCookie.round);
+    .eq('quiz_rounds.round', decodedCookie.round);
     
   if (!data || data.length === 0) {
     // TODO: if no quiz then set them to the newest one

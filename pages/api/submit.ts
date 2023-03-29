@@ -52,6 +52,8 @@ export default async function handler(
     overwrite: true
   });
 
+  const ins: any = await supabase.from('player_scores').insert([{score: (data[0]?.answer ?? '') === selection ? decodedCookie.score + 1: decodedCookie.score}]);
+
   if (error) {
     res.status(400).send({ error: 'no info', nextRoundFromServer: 1, lastRound: false});
     return;
