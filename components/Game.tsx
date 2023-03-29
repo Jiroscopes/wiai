@@ -125,8 +125,8 @@ export default function Game({ images, quiz, round, score }: GameProps) {
                 return (                
                   <Item
                     original={`/quiz_images/${img.filename}`}
-                    width="1024"
-                    height="768"
+                    width={img.width ?? '1024'}
+                    height={img.height ?? '1024'}
                     key={img.filename}
                 >
                   {({ ref, open }) => {
