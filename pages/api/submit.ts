@@ -44,11 +44,12 @@ export default async function handler(
 
   const {error, data} : any = await supabase.from('quiz_rounds')
     .select('answer').eq('id', decodedCookie.round).eq('quiz', quiz);
-
+    var date = new Date(); 
+    var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 25, 59, 59); 
   // TODO: Check how many rounds
   cookies.set('wiai', JSON.stringify({round: decodedCookie.round + 1, score: (data[0]?.answer ?? '') === selection ? decodedCookie.score + 1: decodedCookie.score}), {
     httpOnly: true,
-    expires: new Date(new Date().setUTCHours(7,0,0,0)),
+    expires: tomorrow,
     overwrite: true
   });
 

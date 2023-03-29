@@ -32,11 +32,13 @@ export async function getServerSideProps({req, res}: any) {
   let wiaiCookie: string = cookies.get('wiai') ?? '';
 
   if (!wiaiCookie) {
+    var date = new Date(); 
+    var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 25, 59, 59); 
     // Set round cookie, expires at 2am CST (7:00 UTC)
     cookies.set('wiai', JSON.stringify({round: 1, score: 0}), {
       httpOnly: true,
       // secure: true,
-      expires: new Date(new Date().setUTCHours(7,0,0,0))
+      expires: tomorrow
     });
 
     // Set cookie for this request
@@ -50,11 +52,13 @@ export async function getServerSideProps({req, res}: any) {
 
   // If either piece is missing, reset the cookie and it's data in this request
   if (!decodedCookie.round || decodedCookie.score === undefined || decodedCookie.score === null) {
+      var date = new Date(); 
+      var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 25, 59, 59); 
       // Set round cookie, expires at 2am CST (7:00 UTC)
       cookies.set('wiai', JSON.stringify({round: 1, score: 0}), {
         httpOnly: true,
         // secure: true,
-        expires: new Date(new Date().setUTCHours(7,0,0,0)),
+        expires: tomorrow,
         overwrite: true
       });
 
