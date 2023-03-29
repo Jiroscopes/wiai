@@ -13,6 +13,7 @@
     "@types/node": "18.15.9",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
+    "cookies": "^0.8.0",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "mariadb": "^3.1.1",
@@ -24,6 +25,7 @@
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "@types/cookies": "^0.7.7",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7"

@@ -14,40 +14,18 @@ const DHFont = localFont({ src: '../fonts/DeliciousHandrawn-Regular.ttf'});
 
 type GameProps = {
   images: Array<any>,
-  quiz: number
+  quiz: number,
+  round: number,
+  score: number
 }
 
-export default function Game({ images, quiz }: GameProps) {
+export default function Game({ images, quiz, round, score }: GameProps) {
   const [selectedImg, setSelectedImg] = useState('');
   const [submittedImg, setSubmittedImg] = useState('');
-  const [round, setRound] = useState(1);
-  const [score, setScore] = useState(0);
+  const [isLastRound, setIsLastRound] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState(0); // 0 = Not submitted, 1 = correct submission, 2 = incorrect/invalid submission
   const [answer, setAnswer] = useState('');
-
-  useEffect(() => {
-    const existingLS = localStorage.getItem('wiai2');
-    if (existingLS) {
-      const asJSON = JSON.parse(existingLS);
-      // const timestamp = Date.parse(asJSON.timestamp); // Raw timestamp
-      const timestamp = new Date(Date.parse(asJSON.timestamp));
-      const date = timestamp.getDate();
-      const diffDays = (new Date()).getDate() - date;
-
-      // From today
-      if (diffDays === 0) {
-        setRound(asJSON.round);
-        setScore(asJSON.score);
-        return;
-      }
-    }
-
-    localStorage.setItem('wiai2', JSON.stringify({
-      round: 1,
-      score: 0,
-      timestamp: (new Date()).toISOString()
-    }));
-  }, []);
+  const [nextRound, setNextRound] = useState(1);
 
   function selectImg(imgName: string) {
 
@@ -79,36 +57,37 @@ export default function Game({ images, quiz }: GameProps) {
         })
       });
 
+      const data = await res.json();
+
       if (res.status !== 200) {
-        console.log('failure');
+        console.log(data.error);
+        setNextRound(data.nextRoundFromServer)
+        return;
       }
-      const  {correct, answer} = await res.json();
+      
+      const {correct, answer, nextRoundFromServer, lastRound} = data;
       setSubmittedImg(selectedImg);
       setAnswer(answer);
+      setNextRound(nextRoundFromServer);
+      setIsLastRound(lastRound);
   
       if (!correct) {
         setSubmissionStatus(2);
         return;
       }
 
-      setScore(score + 1);
       setSubmissionStatus(1);
     } catch (error) {
       console.log('oops')
     }
   }
 
-  function nextRound() {
-    let data: any = localStorage.getItem('wiai2');
-    if (!data) {
-      return;
-    }
+  function goNextRound() {
+    window.location.href = `https://${document.location.host}/round/${nextRound}`;
+  }
 
-    data = JSON.parse(data);
-    data.score = score;
-    data.round += 1;
-    localStorage.setItem('wiai2', JSON.stringify(data));
-    window.location.href = `https://${document.location.host}/round/${data.round}`;
+  function goEnd() {
+    window.location.href = `https://${document.location.host}/finish`;
   }
 
   return (
@@ -186,7 +165,8 @@ export default function Game({ images, quiz }: GameProps) {
             {submissionStatus > 0 && (
               <>
                 <button className='bg-darkBlue'>Submit</button>
-                <button onClick={nextRound} className='bg-yellow'>Next Round 	&gt;</button>
+                {!isLastRound && <button onClick={goNextRound} className='bg-yellow'>Next Round 	&gt;</button>}
+                {isLastRound && <button onClick={goEnd} className='bg-yellow'>Finish!</button>}                
               </>
             )}
           </div>
