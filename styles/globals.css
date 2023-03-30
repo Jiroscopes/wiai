@@ -70,6 +70,14 @@ body {
   max-width: 600px;
 }
 
+
+/* Final */
+
+.score-container {
+  @apply text-7xl border-4 border-yellow p-14 rounded-full
+}
+
+
 /* If screen height < 768px */
 @media screen and (max-width: 768px){
   .img-grid {
@@ -77,6 +85,10 @@ body {
     grid-template-rows: repeat(4, 1fr);
     width: 60vw;
     height: 100vw;
+  }
+
+  .img-container:hover {
+    
   }
 
   .buttons-container {

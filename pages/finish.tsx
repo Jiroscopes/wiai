@@ -34,9 +34,14 @@ export default function Finish({score, reset}: any) {
         <h3 className={`${inter.className} text-gold text-sm`}>(Updated daily)</h3>
       </div>
       <div className="flex items-center justify-center text-yellow mt-24 flex-col">
-        <h1>Final Score {score}</h1>
-        <h1>Thanks for Playing!</h1>
-        <h2>Come back tomorrow for more.</h2>
+        <p className='mb-3 text-xl'>Score:</p>
+        <div className="score-container">
+          <p><sup>{score}</sup>&frasl;<sub>3</sub></p>
+        </div>
+        <div className="mt-24 text-center">
+          <h1>Thank you for playing!</h1>
+          <h1>Come back tomorrow for more.</h1>
+        </div>
       </div>
     </>
   )
