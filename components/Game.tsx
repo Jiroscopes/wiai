@@ -21,11 +21,11 @@ type GameProps = {
 
 export default function Game({ images, quiz, round, score }: GameProps) {
   const [selectedImg, setSelectedImg] = useState('');
-  const [submittedImg, setSubmittedImg] = useState('');
   const [isLastRound, setIsLastRound] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState(0); // 0 = Not submitted, 1 = correct submission, 2 = incorrect/invalid submission
   const [answer, setAnswer] = useState('');
   const [nextRound, setNextRound] = useState(1);
+  const [clientScore, setClientScore] = useState(0);
 
   function selectImg(imgName: string) {
 
@@ -66,7 +66,6 @@ export default function Game({ images, quiz, round, score }: GameProps) {
       }
       
       const {correct, answer, nextRoundFromServer, lastRound} = data;
-      setSubmittedImg(selectedImg);
       setAnswer(answer);
       setNextRound(nextRoundFromServer);
       setIsLastRound(lastRound);
@@ -76,6 +75,7 @@ export default function Game({ images, quiz, round, score }: GameProps) {
         return;
       }
 
+      setClientScore(score + 1);
       setSubmissionStatus(1);
     } catch (error) {
       console.log('oops')
@@ -111,7 +111,7 @@ export default function Game({ images, quiz, round, score }: GameProps) {
           <div className='game-info'>
             <div className='text-darkestBlue'>
               <div className='bg-yellow px-3 py-2 rounded-xl'>
-                Score: {score}
+                Score: {Math.max(score, clientScore)}
               </div>
             </div>
             <div className='text-yellow'>

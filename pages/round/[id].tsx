@@ -1,18 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
-import localFont from 'next/font/local';
-import { Inter } from 'next/font/google';
-import Game from '../../components/Game';
 import Cookies from 'cookies';
 import { useEffect } from 'react';
 
-type WiaiCookie = {
-  round: number,
-  score: number
-}
-
-// Fonts
-const inter = Inter({ subsets: ['latin'] });
-const DHFont = localFont({ src: '../../fonts/DeliciousHandrawn-Regular.ttf'});
+// My Stuff
+import { setRoundCookie, WiaiCookie } from '@/util';
+import Game from '../../components/Game';
 
 export default function Round({images, quiz, round, score, end}: any) {
   useEffect(() => {
@@ -32,36 +24,27 @@ export async function getServerSideProps({req, res}: any) {
   let wiaiCookie: string = cookies.get('wiai') ?? '';
 
   if (!wiaiCookie) {
-    var date = new Date(); 
-    var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 25, 59, 59); 
-    // Set round cookie, expires at 2am CST (7:00 UTC)
-    cookies.set('wiai', JSON.stringify({round: 1, score: 0}), {
-      httpOnly: true,
-      // secure: true,
-      expires: tomorrow
-    });
-
+    setRoundCookie(req, res, 1, 0, false);
     // Set cookie for this request
     wiaiCookie = JSON.stringify({
       round: 1,
       score: 0
     })
   }
-
+  // We have the cookie by this time for sure.
   const decodedCookie: WiaiCookie = JSON.parse(wiaiCookie);
 
-  // If either piece is missing, reset the cookie and it's data in this request
-  if (!decodedCookie.round || decodedCookie.score === undefined || decodedCookie.score === null) {
-      var date = new Date(); 
-      var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 25, 59, 59); 
-      // Set round cookie, expires at 2am CST (7:00 UTC)
-      cookies.set('wiai', JSON.stringify({round: 1, score: 0}), {
-        httpOnly: true,
-        // secure: true,
-        expires: tomorrow,
-        overwrite: true
-      });
+  if (decodedCookie.playedToday && decodedCookie.playDate === (new Date().toLocaleDateString())) {
+    return {props: {images: [], quiz: 0, round: 3, score: 0, end: true}}
+  }
 
+  // If either piece is missing, reset the cookie and it's data in this request
+  if (!decodedCookie.round || decodedCookie.score === undefined || 
+      decodedCookie.score === null || decodedCookie.playDate === undefined || 
+      decodedCookie.playDate === null || decodedCookie.playDate === '' || 
+      decodedCookie.playDate !== (new Date().toLocaleDateString())
+  ) {
+      setRoundCookie(req, res, 1, 0, false);
       decodedCookie.round = 1;
       decodedCookie.score = 0;
   }
@@ -89,7 +72,7 @@ export async function getServerSideProps({req, res}: any) {
   }
 
   if (data[0].quiz_rounds.length === 0) {
-    return {props: {images: [], quiz: data[0].id, round: 0, score: 0, end: true}}
+    return {props: {images: [], quiz: data[0].id, round: 1, score: 0, end: true}}
   }
 
   // Pass data to the page via props

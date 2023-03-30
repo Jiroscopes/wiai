@@ -1,20 +1,23 @@
 import React, {forwardRef, useState, useEffect} from 'react';
 import Head from 'next/head';
-// import { createClient } from '@supabase/supabase-js';
 import localFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import Cookies from 'cookies';
 
-type WiaiCookie = {
-  round: number,
-  score: number
-}
+// My Stuff
+import { setRoundCookie, clearCookie, WiaiCookie } from '@/util';
 
 // Fonts
 const inter = Inter({ subsets: ['latin'] });
 const DHFont = localFont({ src: '../fonts/DeliciousHandrawn-Regular.ttf'});
 
-export default function Finish({score}: any) {
+export default function Finish({score, reset}: any) {
+  
+  useEffect(() => {
+    if (reset) {
+      window.location.href = `https://${document.location.host}/`;
+    }
+  }, []);
   return (
     <>
     <Head>
@@ -44,32 +47,16 @@ export async function getServerSideProps({req, res}: any) {
   let wiaiCookie: string = cookies.get('wiai') ?? '';
 
   if (!wiaiCookie) {
-    return {props: {score: 0}}
+    return {props: {reset: true}};
   }
 
   const decodedCookie: WiaiCookie = JSON.parse(wiaiCookie);
 
   // If either piece is missing, reset the cookie and it's data in this request
   if (!decodedCookie.round || decodedCookie.score === undefined || decodedCookie.score === null) {
-    return {props: {score: 0}}
+    clearCookie(req, res, 'wiai');
+    return {props: {reset: true}};
   }
-
-  // Load current quiz images from the database
-  // const key: string = process.env.SUPABASE_KEY ?? '';
-  // const supabase = createClient('https://eoylidbwjakonjghnqei.supabase.co', key);
-
-  // Current time in UTC
-  // const currentTimestamp: string = new Date().toISOString();
-  // const {error, data}: any = await supabase.from('quizzes')
-  //   .select(`
-  //     id,
-  //     quiz_rounds (
-  //       images
-  //     )
-  //   `)
-  //   .lte('start_date', currentTimestamp)
-  //   .gte('end_date', currentTimestamp)
-  //   .eq('quiz_rounds.id', decodedCookie.round);
 
   // Pass data to the page via props
   return { props: {score: decodedCookie.score} }
