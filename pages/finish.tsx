@@ -25,6 +25,7 @@ export default function Finish({score, reset}: any) {
       <meta name="description" content="Pick which image is Ai generated. New images daily!" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.ico" />
+
     </Head>
       {/* Heading */}
       <div className='heading'>
