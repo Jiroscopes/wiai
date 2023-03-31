@@ -23,7 +23,7 @@ body {
 }
 
 .img-container {
-  @apply bg-darkestBlue border-2 border-solid border-gold flex items-center;
+  @apply bg-darkestBlue border-2 border-solid border-gold flex items-center rounded-md;
   min-height: 100px;
   min-width: 100px;
   transition: 0.1s all ease-out;
@@ -88,7 +88,7 @@ body {
   }
 
   .img-container:hover {
-    
+    box-shadow:none;
   }
 
   .buttons-container {
