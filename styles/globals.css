@@ -87,9 +87,9 @@ body {
     height: 100vw;
   }
 
-  .img-container:hover {
+  /* .img-container:hover {
     box-shadow:none;
-  }
+  } */
 
   .buttons-container {
     width: 60vw;
