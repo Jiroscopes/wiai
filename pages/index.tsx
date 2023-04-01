@@ -2,7 +2,6 @@ import React, {forwardRef, useState, useEffect} from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Logo from '../public/logo.svg';
-import Mockup from '../public/mockup.png';
 import localFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import { NextSeo } from 'next-seo';
@@ -30,7 +29,7 @@ export default function Home({}) {
           <div className='heading'>
             <div className='flex flex-row items-center justify-center'>
               <h1 className={`${DHFont.className} text-yellow grid text-7xl`}>wiai</h1>
-              <Image className="ml-2" src={Mockup} width="60" height="60" alt="logo"/>
+              <Image className="ml-2" src={Logo} width="60" height="60" alt="logo"/>
             </div>
             <h2 className={`${inter.className} text-gold text-xl`}>Which image is AI?</h2>
             <h3 className={`${inter.className} text-gold text-sm`}>(Updated daily)</h3>
