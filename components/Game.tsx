@@ -6,8 +6,12 @@ import Head from 'next/head';
 import 'photoswipe/dist/photoswipe.css';
 import { Gallery, Item } from 'react-photoswipe-gallery'
 
-// My Components
+// My Stuff
 import MyImg from '../components/MyImg';
+import Image from 'next/image';
+import Logo from '../public/logo.svg';
+
+
 // Fonts
 const inter = Inter({ subsets: ['latin'] });
 const DHFont = localFont({ src: '../fonts/DeliciousHandrawn-Regular.ttf'});
@@ -93,18 +97,21 @@ export default function Game({ images, quiz, round, score }: GameProps) {
   return (
     <>
       <Head>
-        <title>wiai - Which Image Is AI?</title>
-        <meta name="description" content="Pick which image is Ai generated. New images daily!" />
+        <title>wiai - Round {round}</title> 
+        <meta name="description" content="Pick which image is AI generated. New images daily!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
       </Head>
       <main className=''>
         {/* Main content */}
         <div className='flex items-center flex-col'>
           {/* Heading */}
           <div className='heading'>
-            <h1 className={`${DHFont.className} text-yellow grid text-7xl`}>wiai</h1>
-            <h2 className={`${inter.className} text-gold text-xl`}>Which is AI?</h2>
+            <div className='flex flex-row items-center justify-center'>
+              <h1 className={`${DHFont.className} text-yellow grid text-7xl`}>wiai</h1>
+              <Image className="ml-2" src={Logo} width="60" height="60" alt="logo"/>
+            </div>
+            <h2 className={`${inter.className} text-gold text-xl`}>Which image is AI?</h2>
             <h3 className={`${inter.className} text-gold text-sm`}>(Updated daily)</h3>
           </div>
           {/* Game Info */}
@@ -115,7 +122,7 @@ export default function Game({ images, quiz, round, score }: GameProps) {
               </div>
             </div>
             <div className='text-yellow'>
-              <p>Round {round}</p>
+              <p>Round {round} / 3</p>
             </div>
           </div>
           {/* Image Grid */}

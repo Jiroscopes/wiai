@@ -24,7 +24,7 @@ export default function Finish({score, reset}: any) {
       <title>wiai - Which Image Is AI?</title>
       <meta name="description" content="Pick which image is Ai generated. New images daily!" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.svg" />
 
     </Head>
       {/* Heading */}

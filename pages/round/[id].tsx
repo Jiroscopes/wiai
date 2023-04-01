@@ -3,7 +3,7 @@ import Cookies from 'cookies';
 import { useEffect } from 'react';
 
 // My Stuff
-import { setRoundCookie, WiaiCookie } from '@/util';
+import { setRoundCookie, WiaiCookie, dateOptions } from '@/util';
 import Game from '../../components/Game';
 
 export default function Round({images, quiz, round, score, end}: any) {
@@ -34,7 +34,7 @@ export async function getServerSideProps({req, res}: any) {
   // We have the cookie by this time for sure.
   const decodedCookie: WiaiCookie = JSON.parse(wiaiCookie);
 
-  if (decodedCookie.playedToday && decodedCookie.playDate === (new Date().toLocaleDateString())) {
+  if (decodedCookie.playedToday && decodedCookie.playDate === (new Date().toLocaleDateString('en-US', dateOptions))) {
     return {props: {images: [], quiz: 0, round: 3, score: 0, end: true}}
   }
 
@@ -42,7 +42,7 @@ export async function getServerSideProps({req, res}: any) {
   if (!decodedCookie.round || decodedCookie.score === undefined || 
       decodedCookie.score === null || decodedCookie.playDate === undefined || 
       decodedCookie.playDate === null || decodedCookie.playDate === '' || 
-      decodedCookie.playDate !== (new Date().toLocaleDateString())
+      decodedCookie.playDate !== (new Date().toLocaleDateString('en-US', dateOptions))
   ) {
       setRoundCookie(req, res, 1, 0, false);
       decodedCookie.round = 1;

@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import Cookies from 'cookies';
 
 // My Stuff
-import { setRoundCookie, WiaiCookie } from '@/util';
+import { setRoundCookie, WiaiCookie, dateOptions } from '@/util';
 
 type Data = {
   nextRoundFromServer: number
@@ -37,7 +37,7 @@ export default async function handler(
   if (!decodedCookie.round || decodedCookie.score === undefined || 
     decodedCookie.score === null || decodedCookie.playDate === undefined || 
     decodedCookie.playDate === null || decodedCookie.playDate === '' || 
-    decodedCookie.playDate !== (new Date().toLocaleDateString())
+    decodedCookie.playDate !== (new Date().toLocaleDateString('en-US', dateOptions))
   ) {
       setRoundCookie(req, res, 1, 0, false);
       res.status(400).send({ error: 'no cookie info', nextRoundFromServer: 1, lastRound: false});
