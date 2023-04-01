@@ -3,7 +3,7 @@ import Head from 'next/head';
 import localFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import Cookies from 'cookies';
-
+import { NextSeo } from 'next-seo';
 // My Stuff
 import { setRoundCookie, clearCookie, WiaiCookie } from '@/util';
 
@@ -20,9 +20,11 @@ export default function Finish({score, reset}: any) {
   }, []);
   return (
     <>
+    <NextSeo 
+        title="wiai - Which image is AI?"
+        description="Pick which image is AI generated. New images daily!"
+    />
     <Head>
-      <title>wiai - Which Image Is AI?</title>
-      <meta name="description" content="Pick which image is Ai generated. New images daily!" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.svg" />
 

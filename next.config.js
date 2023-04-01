@@ -4,15 +4,15 @@ const nextConfig = {
   images: {
     domains: ['placekitten.com']
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/round/1',
-        permanent: false
-      }
-    ]
-  }
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/round/1',
+  //       permanent: false
+  //     }
+  //   ]
+  // }
 }
 
 module.exports = nextConfig

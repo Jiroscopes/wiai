@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import React, {forwardRef, useState, useEffect} from 'react';
 import localFont from 'next/font/local';
 import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 import 'photoswipe/dist/photoswipe.css';
 import { Gallery, Item } from 'react-photoswipe-gallery'
@@ -96,9 +97,11 @@ export default function Game({ images, quiz, round, score }: GameProps) {
 
   return (
     <>
+      <NextSeo 
+        title={`wiai - Round ${round}`}
+        description="Pick which image is AI generated. New images daily!"
+      />
       <Head>
-        <title>wiai - Round {round}</title> 
-        <meta name="description" content="Pick which image is AI generated. New images daily!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.svg" />
       </Head>

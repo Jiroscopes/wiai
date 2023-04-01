@@ -77,6 +77,39 @@ body {
   @apply text-7xl border-4 border-yellow p-14 rounded-full
 }
 
+.home-btns {
+  @apply px-10 py-2 rounded-sm mt-3;
+  min-width: 181px;
+  box-shadow: 0 0 0 #FFD60A;
+  animation: pulse 2.5s infinite;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 #FFD60A;
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px #000814;
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 #000814;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 #FFD60A;
+    box-shadow: 0 0 0 0 #FFD60A;
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px #000814;
+      box-shadow: 0 0 0 10px #000814;
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 #000814;
+      box-shadow: 0 0 0 0 #000814;
+  }
+}
 
 /* If screen height < 768px */
 @media screen and (max-width: 768px){
