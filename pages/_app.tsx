@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
             description: 'Pick which image is AI generated. New images daily!',
             images: [
               {
-                url: 'https://wiai.io/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmockup.7016e3da.png&w=1920&q=100',
+                url: 'https://wiai.io/_next/image?url=%2Fmockup.png&w=1920&q=75',
                 width: 1920,
                 height: 1080,
                 alt: 'Image of Wiai round 1',

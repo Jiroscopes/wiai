@@ -1,15 +1,18 @@
 import React, {forwardRef, useState, useEffect} from 'react';
 import Head from 'next/head';
-import localFont from 'next/font/local';
+// import localFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import Cookies from 'cookies';
 import { NextSeo } from 'next-seo';
+import { TwitterShareButton, TwitterIcon } from 'react-share';
+
 // My Stuff
+import GameHeading from '@/components/GameHeading';
 import { setRoundCookie, clearCookie, WiaiCookie } from '@/util';
 
 // Fonts
 const inter = Inter({ subsets: ['latin'] });
-const DHFont = localFont({ src: '../fonts/DeliciousHandrawn-Regular.ttf'});
+// const DHFont = localFont({ src: '../fonts/DeliciousHandrawn-Regular.ttf'});
 
 export default function Finish({score, reset}: any) {
   
@@ -27,22 +30,18 @@ export default function Finish({score, reset}: any) {
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.svg" />
-
     </Head>
-      {/* Heading */}
-      <div className='heading'>
-        <h1 className={`${DHFont.className} text-yellow grid text-7xl`}>wiai</h1>
-        <h2 className={`${inter.className} text-gold text-xl`}>Which is AI?</h2>
-        <h3 className={`${inter.className} text-gold text-sm`}>(Updated daily)</h3>
-      </div>
-      <div className="flex items-center justify-center text-yellow mt-24 flex-col">
-        <p className='mb-3 text-xl'>Score:</p>
+      <GameHeading />
+      <div className="flex items-center justify-center text-yellow mt-20 flex-col">
         <div className="score-container">
           <p><sup>{score}</sup>&frasl;<sub>3</sub></p>
         </div>
-        <div className="mt-24 text-center">
+        <div className={`${inter.className} mt-16 text-center`}>
           <h1>Thank you for playing!</h1>
           <h1>Come back tomorrow for more.</h1>
+          <TwitterShareButton url='https://wiai.io' className='mt-4' related={['@wiai_io']} via='wiai_io' title={`I got ${score}/3 on today's wiai ${score > 1 ? '🥳' : '😭'}`}>
+            <TwitterIcon size={32} round={true}/>
+          </TwitterShareButton>
         </div>
       </div>
     </>

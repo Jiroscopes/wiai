@@ -3,13 +3,13 @@ import React, {forwardRef, useState, useEffect} from 'react';
 import localFont from 'next/font/local';
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
+import Image from 'next/image';
 
 import 'photoswipe/dist/photoswipe.css';
 import { Gallery, Item } from 'react-photoswipe-gallery'
 
 // My Stuff
 import MyImg from '../components/MyImg';
-import Image from 'next/image';
 import Logo from '../public/logo.svg';
 
 
