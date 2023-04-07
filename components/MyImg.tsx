@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { useState } from 'react';
 
 import ExpandIcon from '../public/expand-icon.svg';
 interface ImgProps {
