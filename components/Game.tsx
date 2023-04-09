@@ -11,6 +11,7 @@ import { Gallery, Item } from 'react-photoswipe-gallery'
 // My Stuff
 import MyImg from '../components/MyImg';
 import Logo from '../public/logo.svg';
+import { updateGameResult } from '@/util';
 
 
 // Fonts
@@ -76,11 +77,13 @@ export default function Game({ images, quiz, round, score }: GameProps) {
       setIsLastRound(lastRound);
   
       if (!correct) {
+        updateGameResult(selectedImg, score);
         setSubmissionStatus(2);
         return;
       }
 
       setClientScore(score + 1);
+      updateGameResult(selectedImg, score + 1);
       setSubmissionStatus(1);
     } catch (error) {
       console.log('oops')

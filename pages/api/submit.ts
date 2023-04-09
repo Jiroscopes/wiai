@@ -11,7 +11,7 @@ type Data = {
   lastRound: boolean
   correct?: boolean,
   answer?: string,
-  error?: string
+  error?: string,
 }
 
 const key: any = process.env.SUPABASE_KEY;
@@ -23,10 +23,14 @@ export default async function handler(
 
   const {selection, quiz} = req.body;
   const cookies = new Cookies(req, res);
+
+  // Track correctness
+  let roundScores = [0, 0 ,0];
+  
   let wiaiCookie: string = cookies.get('wiai') ?? '';
 
   if (!wiaiCookie) {
-    setRoundCookie(req, res, 1, 0, false);
+    setRoundCookie(req, res, 1, 0, false, roundScores);
     res.status(400).send({ error: 'no cookie', nextRoundFromServer: 1, lastRound: false});
     return;
   }
@@ -39,10 +43,12 @@ export default async function handler(
     decodedCookie.playDate === null || decodedCookie.playDate === '' || 
     decodedCookie.playDate !== (new Date().toLocaleDateString('en-US', dateOptions))
   ) {
-      setRoundCookie(req, res, 1, 0, false);
+      setRoundCookie(req, res, 1, 0, false, roundScores);
       res.status(400).send({ error: 'no cookie info', nextRoundFromServer: 1, lastRound: false});
       return;
   }
+
+  roundScores = decodedCookie.roundScores;
 
   const supabase = createClient('https://eoylidbwjakonjghnqei.supabase.co', key);
 
@@ -51,6 +57,7 @@ export default async function handler(
 
   // TODO: Check how many rounds
   const newScore = (data[0]?.answer ?? '') === selection ? decodedCookie.score + 1: decodedCookie.score;
+  roundScores[decodedCookie.round - 1] = (data[0]?.answer ?? '') === selection ? 1: 0;
 
   // Insert score into DB
   const ins: any = await supabase.from('player_scores').insert([{score: newScore}]);
@@ -66,6 +73,6 @@ export default async function handler(
     lastRound = true;
   }
 
-  setRoundCookie(req, res, decodedCookie.round + 1, newScore, lastRound);
-  res.status(200).json({ correct: (data[0]?.answer ?? '') === selection, answer: data[0]?.answer ?? '', nextRoundFromServer: decodedCookie.round + 1, lastRound: lastRound})
+  setRoundCookie(req, res, decodedCookie.round + 1, newScore, lastRound, roundScores);
+  res.status(200).json({ correct: (data[0]?.answer ?? '') === selection, answer: data[0]?.answer ?? '', nextRoundFromServer: decodedCookie.round + 1, lastRound: lastRound});
 }

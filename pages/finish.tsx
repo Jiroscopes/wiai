@@ -1,5 +1,6 @@
 import React, {forwardRef, useState, useEffect} from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 // import localFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import Cookies from 'cookies';
@@ -8,14 +9,13 @@ import { TwitterShareButton, TwitterIcon } from 'react-share';
 
 // My Stuff
 import GameHeading from '@/components/GameHeading';
-import { setRoundCookie, clearCookie, WiaiCookie } from '@/util';
+import { clearCookie, WiaiCookie } from '@/util';
 
 // Fonts
 const inter = Inter({ subsets: ['latin'] });
 // const DHFont = localFont({ src: '../fonts/DeliciousHandrawn-Regular.ttf'});
 
-export default function Finish({score, reset}: any) {
-  
+export default function Finish({score, reset, roundScores}: any) {
   useEffect(() => {
     if (reset) {
       window.location.href = `https://${document.location.host}/`;
@@ -36,10 +36,15 @@ export default function Finish({score, reset}: any) {
         <div className="score-container">
           <p><sup>{score}</sup>&frasl;<sub>3</sub></p>
         </div>
-        <div className={`${inter.className} mt-16 text-center`}>
+        <div className='my-6'>
+          {roundScores.map((val: number, idx: number) => {
+            return <Link href={`/round/review/${idx + 1}`} className={`${val === 0 ? 'round-wrong' : ''} round-scores`} key={idx}>{val ? '\u2713' : 'X'}</Link>
+          })}
+        </div>
+        <div className={`${inter.className} text-center`}>
           <h1>Thank you for playing!</h1>
           <h1>Come back tomorrow for more.</h1>
-          <TwitterShareButton url='https://wiai.io' className='mt-4' related={['@wiai_io']} via='wiai_io' title={`I got ${score}/3 on today's wiai ${score > 1 ? '🥳' : '😭'}`}>
+          <TwitterShareButton url='https://wiai.io' className='mt-4' related={['@wiai_io']} via='wiai_io' title={`I got ${score}/3 on today's wiai ${score > 1 ? '🥳' : '😭'} \n Rounds: ${roundScores.map((val: number, idx: number) => { return val ? '✅' : '❌'}).join('')}`}>
             <TwitterIcon size={32} round={true}/>
           </TwitterShareButton>
         </div>
@@ -66,6 +71,6 @@ export async function getServerSideProps({req, res}: any) {
   }
 
   // Pass data to the page via props
-  return { props: {score: decodedCookie.score} }
+  return { props: {score: decodedCookie.score, roundScores: decodedCookie.roundScores ?? []} }
 }
 

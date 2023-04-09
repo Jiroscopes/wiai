@@ -24,7 +24,7 @@ export async function getServerSideProps({req, res}: any) {
   let wiaiCookie: string = cookies.get('wiai') ?? '';
 
   if (!wiaiCookie) {
-    setRoundCookie(req, res, 1, 0, false);
+    setRoundCookie(req, res, 1, 0, false, [0, 0, 0]);
     // Set cookie for this request
     wiaiCookie = JSON.stringify({
       round: 1,
@@ -44,7 +44,7 @@ export async function getServerSideProps({req, res}: any) {
       decodedCookie.playDate === null || decodedCookie.playDate === '' || 
       decodedCookie.playDate !== (new Date().toLocaleDateString('en-US', dateOptions))
   ) {
-      setRoundCookie(req, res, 1, 0, false);
+      setRoundCookie(req, res, 1, 0, false, [0, 0, 0]);
       decodedCookie.round = 1;
       decodedCookie.score = 0;
   }

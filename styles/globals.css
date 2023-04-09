@@ -101,6 +101,16 @@ body {
   animation: pulse 2.5s infinite;
 }
 
+.round-scores {
+  @apply text-darkestBlue bg-yellow m-1 px-2 py-1 rounded-md inline-block text-center cursor-pointer;
+  min-width: 30px;
+}
+
+.round-wrong {
+  @apply text-yellow bg-darkBlue border-yellow;
+  border-width: 1px;
+}
+
 @-webkit-keyframes pulse {
   0% {
     -webkit-box-shadow: 0 0 0 0 #FFD60A;

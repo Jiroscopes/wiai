@@ -28,7 +28,7 @@ export default function Instructions({showInstructions, setShowInstructions}: In
         </div>
         <div className="flex flex-col text-white w-auto items-center text-center">
           <p>You will be shown 4 images. 
-            <br />Try to find which of the images is Ai generated.</p>
+            <br />Try to find which of the images is AI generated.</p>
         </div>
         <h3 className="text-yellow text-center mb-4 pt-8 text-xl">Some Tips:</h3>
         <ul className="instructions-list text-white w-3/5 list-disc flex items-center flex-col text-center">
