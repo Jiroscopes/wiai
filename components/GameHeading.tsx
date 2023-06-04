@@ -19,7 +19,7 @@ export default function GameHeading() {
           <Image className="ml-2" src={Logo} width="60" height="60" alt="logo"/>
         </div>
         <h2 className={`${inter.className} text-gold text-xl`}>Which image is AI?</h2>
-        <h3 className={`${inter.className} text-gold text-sm`}>(Updated daily)</h3>
+        <h3 className={`${inter.className} text-gold text-sm`}>(No longer updated)</h3>
       </div>
     </>
   )

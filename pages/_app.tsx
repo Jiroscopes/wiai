@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
             locale: 'en_IE',
             url: 'https://www.wiai.io/',
             siteName: 'wiai',
-            description: 'Pick which image is AI generated. New images daily!',
+            description: 'Pick which image is AI generated. (No longer updated)',
             images: [
               {
                 url: 'https://wiai.io/_next/image?url=%2Fmockup.png&w=1920&q=75&twitter=true',

@@ -59,7 +59,7 @@ export default function GameReview({ images, round, roundAnswer }: GameReviewPro
     <>
       <NextSeo 
         title={`wiai - Round ${round} Review`}
-        description="Pick which image is AI generated. New images daily!"
+        description="Pick which image is AI generated. (No longer updated)"
       />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -75,7 +75,7 @@ export default function GameReview({ images, round, roundAnswer }: GameReviewPro
               <Image className="ml-2" src={Logo} width="60" height="60" alt="logo"/>
             </div>
             <h2 className={`${inter.className} text-gold text-xl`}>Which image is AI?</h2>
-            <h3 className={`${inter.className} text-gold text-sm`}>(Updated daily)</h3>
+            <h3 className={`${inter.className} text-gold text-sm`}>(No longer updated)</h3>
           </div>
           {/* Game Info */}
           <div className='game-info'>

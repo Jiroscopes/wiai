@@ -21,7 +21,7 @@ export default function Home({}) {
     <>
       <NextSeo 
         title="wiai - Which image is AI?"
-        description="Pick which image is AI generated. New images daily!"
+        description="Pick which image is AI generated. (No longer updated)"
       />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
